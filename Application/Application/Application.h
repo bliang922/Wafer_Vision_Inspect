@@ -6,7 +6,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_Application.h"
-#include "Controller_IOC0640.h"
+#include "Controller.h"
 #include <QtWidgets/QMainWindow>
 #include "HalconCpp.h"
 #include "qdebug.h"
@@ -17,15 +17,14 @@
 //#include "qtCameraClass.h"
 
 //Luster camera
-#include "LusterCameraClass.h"
+#include "TeleDyneCamera.h"
 #include <QMetaType>
 #include <QStandardItemModel>
-#include "ClientClass.h"
-#include "SQLiteClass.h"
+#include "SQLite.h"
 #include <stdbool.h>
 #include <ctime>
 #include <iostream>
-#include "ProductionStatistic.h"
+#include "ProduceStatistic.h"
 #include "Algorithm.h"
 #include <QtWidgets>
 #include<thread>
@@ -66,7 +65,7 @@ public:
 	//qtCameraClass * camera;
 
 	//Luster camera
-	LusterCameraClass *camera[DEVICE_NUM];
+	TeleDyneCamera *camera[DEVICE_NUM];
 	std::mutex mtx_camera, mtx_sql, mtx_modbus, mtx_ioc0640, mtx_algorithm;
 	MV_CC_DEVICE_INFO_LIST m_stDevList = { 0 };
 	int cameraChecked[DEVICE_NUM];
@@ -100,28 +99,17 @@ public slots:
 	//	void mousePressEvent(QMouseEvent *event) override;
 	//	void wheelEvent(QWheelEvent *event) override;
 
-
-	/************************************Modbus TCP communication**************************************************************************/
+/************************************SQLite**************************************************************************/
 public:
-	ClientClass *client;
-	QStandardItemModel* model_PLC_IO, *model_sql_data, *model_alarms;
-public slots:
-	void btn_send_clicked();
-	void valueChanged();
-	void plcDataUpdate();
-
-
-	/************************************SQLite**************************************************************************/
-public:
-	SQLiteClass *sql;
-	ProductionStatistic product_stat;
+	SQLite *sql;
+	ProduceStatistic product_stat;
 public slots:
 	void query_returned(int, char **, char **);
 
-	/************************************Controller**************************************************************************/
+/************************************Controller**************************************************************************/
 
 public:
-	Controller_IOC0640 *ioc0640;
+	Controller *controller;
 
 public slots:
 	void showAlarm(const char*, const char*);

@@ -297,13 +297,13 @@ void Application::showImage(int cameraNum) {
 
 
 /*******************************************ModbusTCP communication*******************************************************************/
-void QWidget_Halcon_LoadImage::valueChanged() {
+void Application::valueChanged() {
 
 	ui.textEdit_status->append("PLC data at address 0 has changed");
 
 }
 
-void QWidget_Halcon_LoadImage::plcDataUpdate() {
+void Application::plcDataUpdate() {
 
 	QStandardItem *item = 0;
 	long int * pointer;
@@ -327,7 +327,7 @@ void QWidget_Halcon_LoadImage::plcDataUpdate() {
 	ui.table_IO->update();
 }
 
-void QWidget_Halcon_LoadImage::btn_send_clicked() {
+void Application::btn_send_clicked() {
 	if (ui.lineEdit->text().length() != 0) {
 		if (client->mtx->try_lock()) {
 			//strcpy((char *) client->sendbuf,  ui.lineEdit->text().toLocal8Bit().data());
@@ -343,7 +343,7 @@ void QWidget_Halcon_LoadImage::btn_send_clicked() {
 
 
 /*******************************************SQLite*******************************************************************/
-void QWidget_Halcon_LoadImage::query_returned(int argc, char **argv, char **azColName) {
+void Application::query_returned(int argc, char **argv, char **azColName) {
 
 	QStandardItem *item = 0;
 
@@ -368,34 +368,34 @@ void QWidget_Halcon_LoadImage::query_returned(int argc, char **argv, char **azCo
 
 /*******************************************Contorller*******************************************************************/
 
-void QWidget_Halcon_LoadImage::measure() {
+void Application::measure() {
 
 	this->btn_loadImage_clicked();
 	product_stat.addOneProduct(std::string("LCM01").data(), MEASURE_RESULT_OK);
 	ioc0640->pc_done = true;
 	//ui.table_statistic->update();
 }
-void QWidget_Halcon_LoadImage::lightButton_clicked() {
+void Application::lightButton_clicked() {
 	ioc0640->AUTO_MODE = false;
 	if (ioc0640->light_on)
 		ioc0640->light_on = false;
 	else ioc0640->light_on = true;
 }
-void QWidget_Halcon_LoadImage::LED1Button_clicked() {
+void Application::LED1Button_clicked() {
 	ioc0640->AUTO_MODE = false;
 
 	if (ioc0640->led1_on)
 		ioc0640->led1_on = false;
 	else ioc0640->led1_on = true;
 }
-void QWidget_Halcon_LoadImage::LED2Button_clicked() {
+void Application::LED2Button_clicked() {
 	ioc0640->AUTO_MODE = false;
 
 	if (ioc0640->led2_on)
 		ioc0640->led2_on = false;
 	else ioc0640->led2_on = true;
 }
-void QWidget_Halcon_LoadImage::rotateButton_clicked() {
+void Application::rotateButton_clicked() {
 	ioc0640->AUTO_MODE = false;
 
 	if (ioc0640->solenoid_rotateStation->in_closed)
@@ -404,7 +404,7 @@ void QWidget_Halcon_LoadImage::rotateButton_clicked() {
 		ioc0640->step2_reload = true;
 }
 
-void QWidget_Halcon_LoadImage::showAlarm(const char* deviceName, const char* discription) {
+void Application::showAlarm(const char* deviceName, const char* discription) {
 
 	QList<QStandardItem *> items;	//QList is the list of items in one row in the model_alarms
 

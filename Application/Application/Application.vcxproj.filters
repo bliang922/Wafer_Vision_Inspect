@@ -21,6 +21,12 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Header Files\FieldDevice">
+      <UniqueIdentifier>{1887e0b2-5b82-44fd-bbc7-f71b8882b9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FieldDevice">
+      <UniqueIdentifier>{26153508-da69-49d5-8791-1849a267389a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Application.qrc">
@@ -46,6 +52,18 @@
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SQLite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Algorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Valve.cpp">
+      <Filter>Source Files\FieldDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="Time_Counter.cpp">
+      <Filter>Source Files\FieldDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="TeleDyneCamera.h">
@@ -54,5 +72,19 @@
     <QtMoc Include="Controller.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="SQLite.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Algorithm.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Time_Counter.h">
+      <Filter>Header Files\FieldDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="Valve.h">
+      <Filter>Header Files\FieldDevice</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@
 #include <stdbool.h>
 #include <ctime>
 #include <iostream>
-#include "ProduceStatistic.h"
+#include "ProductionStatistic.h"
 #include "Algorithm.h"
 #include <QtWidgets>
 #include<thread>
@@ -36,7 +36,7 @@ using namespace Qt;
 using namespace std;
 
 // camera number
-#define DEVICE_NUM    3
+#define DEVICE_NUM    1
 
 
 class Application : public QMainWindow
@@ -102,7 +102,7 @@ public slots:
 /************************************SQLite**************************************************************************/
 public:
 	SQLite *sql;
-	ProduceStatistic product_stat;
+	ProductionStatistic product_stat;
 public slots:
 	void query_returned(int, char **, char **);
 

@@ -56,17 +56,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <IncludePath>C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include\QtCore;C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include\halconcpp;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\lib;.\Xygtest1\x64\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\lib;.\Xygtest1\x64\Debug;.\GoogolTech;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\;..\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\GoogolTech;.\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\IOC0640\64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;..\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;IOC0640.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;Xygtest1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;IOC0640.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;Xygtest1.lib;gts.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="GTS_800_ACC2.cpp" />
     <ClCompile Include="SQLite.cpp" />
     <ClCompile Include="TeleDyneCamera.cpp" />
     <ClCompile Include="Time_Counter.cpp" />
@@ -118,6 +119,7 @@
     <QtMoc Include="SQLite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GTS_800_ACC2.h" />
     <ClInclude Include="Time_Counter.h" />
     <ClInclude Include="Valve.h" />
     <QtMoc Include="Algorithm.h" />

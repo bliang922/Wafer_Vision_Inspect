@@ -10,11 +10,6 @@ Controller::~Controller()
 {
 }
 
-//控制卡的初始化操作,IO 信号 false表示信号有效 true表示信号无效，注意与逻辑true false区分，刚好相反！！！
-//控制卡的初始化操作,IO 信号 false表示信号有效 true表示信号无效，注意与逻辑true false区分，刚好相反！！！
-//控制卡的初始化操作,IO 信号 false表示信号有效 true表示信号无效，注意与逻辑true false区分，刚好相反！！！
-
-
 void Controller::initialize() {
 
 	if (ioc_board_init() <= 0) {

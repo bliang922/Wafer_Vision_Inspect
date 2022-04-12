@@ -104,6 +104,162 @@
      <attribute name="title">
       <string>伺服控制</string>
      </attribute>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>3</y>
+        <width>561</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>轴1-上下料轴</string>
+         </property>
+         <widget class="QPushButton" name="Btn_Axile1_Enable">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>50</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴使能</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Home">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>50</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Home</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_LoadPos">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>80</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>上料位</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_MeasurePos">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>110</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>测量位</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Jog1">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>80</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Jog +</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Jog2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>110</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Jog -</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="toolButton">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>160</y>
+            <width>21</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>170</y>
+            <width>54</width>
+            <height>12</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴正限位</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="toolButton_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>190</y>
+            <width>21</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>200</y>
+            <width>54</width>
+            <height>12</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴负限位</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>轴2-旋转平台</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget_3">
@@ -494,8 +650,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>100</y>
+       <x>0</x>
+       <y>0</y>
        <width>1020</width>
        <height>1140</height>
       </rect>

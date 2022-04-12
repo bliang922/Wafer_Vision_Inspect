@@ -2,7 +2,6 @@
 
 #include <QObject>
 #include <QtWidgets>
-#include "IOC0640.H"
 
 #include <thread>
 #include <mutex>

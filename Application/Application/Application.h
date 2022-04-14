@@ -115,6 +115,8 @@ public slots:
 
 public:
 	Controller *controller;
+	QStandardItemModel *model_sql_data, *model_alarms;
+
 
 public slots:
 	void showAlarm(const char*, const char*);

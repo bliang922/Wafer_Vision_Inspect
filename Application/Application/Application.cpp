@@ -95,19 +95,19 @@ Application::Application(QWidget *parent)
 
 
 	//show table grid 
-	ui.table_statistic->setShowGrid(true);
-	//set table grid line to DashLine or DotLine
-	ui.table_statistic->setGridStyle(Qt::DashLine);
-	//ui.table_statistic->setSortingEnabled(true);
-	model_sql_data = new QStandardItemModel();
-	QStringList labels_2 = QObject::trUtf8("TIME,TOTAL,OK_TOTAL,NG_TOTAL,OK_RATE,SHIFT").simplified().split(",");
-	model_sql_data->setHorizontalHeaderLabels(labels_2);
-
 	ui.table_statistic->setModel(&product_stat.model_productData);
 	ui.table_statistic->setShowGrid(true);
 	ui.table_statistic->show();
 
 /*******************************************GTS_800 Module Initialize*******************************************************************/
+	model_alarms = new QStandardItemModel();
+	QStringList labels2 = QObject::trUtf8("Time,Device,Discript").simplified().split(",");
+	model_alarms->setHorizontalHeaderLabels(labels2);
+	ui.table_alarm->setModel(model_alarms);
+	ui.table_alarm->setShowGrid(true);
+
+	ui.table_alarm->show();
+	
 	controller = new Controller(NULL);
 	connect(controller, &Controller::loadPartDone, this, &Application::measure);
 	connect(controller, &Controller::raiseAlarm, this, &Application::showAlarm);
@@ -271,26 +271,7 @@ void Application::measure() {
 	controller->pc_done = true;
 	//ui.table_statistic->update();
 }
-void Application::lightButton_clicked() {
-	controller->AUTO_MODE = false;
-	if (controller->light_on)
-		controller->light_on = false;
-	else controller->light_on = true;
-}
-void Application::LED1Button_clicked() {
-	controller->AUTO_MODE = false;
 
-	if (controller->led1_on)
-		controller->led1_on = false;
-	else controller->led1_on = true;
-}
-void Application::LED2Button_clicked() {
-	controller->AUTO_MODE = false;
-
-	if (controller->led2_on)
-		controller->led2_on = false;
-	else controller->led2_on = true;
-}
 void Application::rotateButton_clicked() {
 	controller->AUTO_MODE = false;
 

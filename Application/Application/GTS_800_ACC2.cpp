@@ -28,7 +28,7 @@ bool GTS_800_ACC2::initialize() {
 	else return true;
 }
 
-void GTS_800_ACC2::homePosition(short axis) {
+bool GTS_800_ACC2::homePosition(short axis) {
 	// 启动Home捕获
 	rt = GT_SetCaptureMode(axis, CAPTURE_HOME);
 	// 切换到点位运动模式
@@ -61,6 +61,7 @@ void GTS_800_ACC2::homePosition(short axis) {
 		{
 			error = true;
 			errorDiscript = "Homing failed.";
+			return false;
 		}
 		// 等待捕获触发
 	} while (0 == capture);
@@ -86,6 +87,7 @@ void GTS_800_ACC2::homePosition(short axis) {
 	{
 		error = true;
 		errorDiscript = "Axis move to position failed.";
+		return false;
 	}
 	// 延时一段时间，等待电机停稳
 	std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -100,6 +102,7 @@ void GTS_800_ACC2::homePosition(short axis) {
 	rt = GT_GetAxisPrfPos(axis, &axisPrfPos);
 	// 读取axis编码器位置
 	rt = GT_GetAxisEncPos(axis, &axisEncPos);
+	return true;
 
 }
 
@@ -112,7 +115,7 @@ void GTS_800_ACC2::close() {
 }
 
 
-void GTS_800_ACC2::MoveToPos(short axis,double position,double velocity) {
+bool GTS_800_ACC2::MoveToPos(short axis,double position,double velocity) {
 	rt = 0;
 	rt = GT_SetCaptureMode(axis, CAPTURE_INDEX);
 	// 切换到点位运动模式
@@ -138,5 +141,10 @@ void GTS_800_ACC2::MoveToPos(short axis,double position,double velocity) {
 		GT_GetPrfPos(axis, &prfPos);
 	} while (status & 0x400);	// 等待AXIS轴规划停止
 
-
+	if (prfPos != position) {
+		error = true;
+		errorDiscript = "Move to position failed.";
+		return false;
+	}
+	else return true;
 }

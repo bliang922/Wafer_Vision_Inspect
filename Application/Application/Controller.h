@@ -9,6 +9,7 @@
 #include "Time_Counter.h"
 #include <string>
 #include <stdbool.h>
+#include "GTS_800_ACC2.h"
 
 #define INPUT_NUM 32
 #define OUTPUT_NUM 32
@@ -32,7 +33,8 @@ public:
 	std::thread controllerThread;
 	std::mutex* mtx;
 	QTextEdit *textEdit;
-	bool ioc0640_Connected = false;
+	GTS_800_ACC2 gts_800;
+	bool gts_800_Connected = false;
 	bool AUTO_MODE = false;
 	void initialize();
 	void lauchControllerThread();
@@ -42,10 +44,12 @@ public:
 
 	//field device:
 	bool start_button = false;
+	bool home_button = false;
+	bool moveToLoad_button = false;
+	bool moveToMeasure_button = false;
+
 	bool pc_done = false;
-	bool light_on = false;
-	bool led1_on = false;
-	bool led2_on = false;
+
 	bool step1_loadPart = false;
 	bool step2_reload = false;
 	Valve *solenoid_rotateStation;

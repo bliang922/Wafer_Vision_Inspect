@@ -15,8 +15,6 @@ public:
 	~Algorithm();
 
 	int cameraNum;
-
-
 	std::thread algorithmThread;
 	std::mutex* mtx;
 	QTextEdit *textEdit;

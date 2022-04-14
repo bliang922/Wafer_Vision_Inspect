@@ -6,13 +6,15 @@
 #include "Time_Counter.h"
 #include <thread>
 
-#define AXIS_NUM 2
-#define AXIS1_LOAD 1
-#define AXIS2_ROTATE 2
+#define AXIS_NUM         2
+#define AXIS1_LOAD       1
+#define AXIS2_ROTATE     2
 #define SEARCH_HOME		-200000
 #define HOME_OFFSET		-200
-#define LOAD_OFFSET		-2000
-#define MEASURE_OFFSET		-2000
+#define LOAD_POSITION		-2000
+#define MEASURE_POSITION  -2000
+#define LOAD_UNLOAD_VELOCITY 10
+#define ROTATE_VELOCITY 10
 
 class GTS_800_ACC2
 {
@@ -30,8 +32,8 @@ public:
 	double prfPos, encPos, axisPrfPos, axisEncPos;
 
 
-	bool in_closed = false;
-	bool in_opened = false;
+	bool in_load_pos = false;
+	bool in_measure_pos = false;
 	bool in_error = false;
 	bool cmdOpen = false;
 	bool cmdClose = false;
@@ -51,12 +53,12 @@ public:
 	void close();
 	//每个扫描周期需要处理的逻辑，根据输入变化更新输出信号
 	void run();
-	void homePosition(short axis);
-	void MoveToPos(short axis,double position, double velocity);
+	bool homePosition(short axis);
+	bool MoveToPos(short axis,double position, double velocity);
 	void measurePosition();
-	void jogIncrease();
-	void jogDecrease();
-
+	void jogIncrease(short axis);
+	void jogDecrease(short axis);
+	void enableAxis(short axis);
 
 };
 

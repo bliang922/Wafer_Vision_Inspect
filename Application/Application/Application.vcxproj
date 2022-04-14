@@ -55,14 +55,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include\QtCore;C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include\halconcpp;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\lib;.\Xygtest1\x64\Debug;.\GoogolTech;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Qt\5.14.1\msvc2017_64\include\QtCore;D:\Qt\5.14.1\msvc2017_64\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include\halconcpp;.\GoogolTech;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;D:\Qt\5.14.1\msvc2017_64\lib;.\Xygtest1\x64\Debug;.\GoogolTech;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Qt\Qt5.14.1\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\GoogolTech;.\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Qt\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\Application\GoogolTech;.\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\IOC0640\64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;..\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

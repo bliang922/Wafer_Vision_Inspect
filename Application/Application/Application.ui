@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1600</width>
-    <height>1200</height>
+    <width>1709</width>
+    <height>1329</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,7 +104,7 @@
      <attribute name="title">
       <string>伺服控制</string>
      </attribute>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -171,7 +171,7 @@
            <string>测量位</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="Btn_Jog1">
+         <widget class="QPushButton" name="Btn_JogIncrease">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -184,7 +184,7 @@
            <string>Jog +</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="Btn_Jog2">
+         <widget class="QPushButton" name="Btn_JogDecrease">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -541,7 +541,7 @@
      <property name="title">
       <string>系统状态</string>
      </property>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="Indicator_AutoMode">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -554,7 +554,7 @@
        <string>自动模式</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="Indicator_ManualMode">
       <property name="geometry">
        <rect>
         <x>270</x>
@@ -584,44 +584,27 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>174</y>
+        <y>160</y>
         <width>521</width>
         <height>31</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="Indicator_Comm">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="Indicator_Motion">
          <property name="text">
-          <string>Communication</string>
+          <string>MotionController</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="0">
         <widget class="QPushButton" name="Indicator_Camera">
          <property name="text">
-          <string>Camera1</string>
+          <string>Camera</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="Indicator_Camera2">
-         <property name="text">
-          <string>Camera2</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="Indicator_Camera3">
-         <property name="text">
-          <string>Camera3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
         <widget class="QPushButton" name="Indicator_Database">
          <property name="text">
           <string>DataBase</string>
@@ -667,8 +650,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1600</width>
-     <height>23</height>
+     <width>1709</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

@@ -67,7 +67,6 @@ public:
 	//Luster camera
 	TeleDyneCamera *camera[DEVICE_NUM];
 	std::mutex mtx_camera, mtx_sql, mtx_modbus, mtx_ioc0640, mtx_algorithm;
-	MV_CC_DEVICE_INFO_LIST m_stDevList = { 0 };
 	int cameraChecked[DEVICE_NUM];
 	//void zoomImage(HTuple factor, HObject *);
 	//void showImage(HObject &image,HTuple& windowHandle);
@@ -94,6 +93,12 @@ public slots:
 	void checkBox_clicked();
 	void showImage(int cameraNum);
 
+	void Btn_Axile1_Enable_clicked();
+	void Btn_JogIncrease_clicked();
+	void Btn_JogDecrease_clicked();
+	void Btn_Home_clicked();
+	void Btn_LoadPos_clicked();
+	void Btn_MeasurePos_clicked();
 	//protected:
 	//	void mouseMoveEvent(QMouseEvent *event) override;
 	//	void mousePressEvent(QMouseEvent *event) override;

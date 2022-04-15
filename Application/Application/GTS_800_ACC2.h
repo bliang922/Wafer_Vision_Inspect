@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "Time_Counter.h"
 #include <thread>
-
+#include <stddef.h>
 #define AXIS_NUM         2
 #define AXIS1_LOAD       1
 #define AXIS2_ROTATE     2
@@ -19,9 +19,8 @@
 class GTS_800_ACC2
 {
 public:
-	GTS_800_ACC2(char * deviceName, Time_Counter *timer, int timeOut);
-	char *device_name;
-	bool error;
+	GTS_800_ACC2(const char * deviceName, Time_Counter *timer, int timeOut);
+	const char *device_name;
 	short rt, capture;
 
 	const char* errorDiscript;
@@ -48,17 +47,17 @@ public:
 	bool previous_cmdClose = false;
 
 	Time_Counter *timer;
-
+public:
 	bool initialize();
 	void close();
 	//每个扫描周期需要处理的逻辑，根据输入变化更新输出信号
 	void run();
+
 	bool homePosition(short axis);
 	bool MoveToPos(short axis,double position, double velocity);
 	void measurePosition();
 	void jogIncrease(short axis);
 	void jogDecrease(short axis);
 	void enableAxis(short axis);
-
 };
 

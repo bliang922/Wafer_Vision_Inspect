@@ -28,12 +28,13 @@ public:
 	bool Output[OUTPUT_NUM];
 	bool myInputLogic[INPUT_NUM];
 	bool myOutputLogic[OUTPUT_NUM];
-
+	// 通用输入读取值
+	long lGpiValue;
 
 	std::thread controllerThread;
 	std::mutex* mtx;
 	QTextEdit *textEdit;
-	GTS_800_ACC2 gts_800;
+	GTS_800_ACC2 *gts_800;
 	bool gts_800_Connected = false;
 	bool AUTO_MODE = false;
 	void initialize();

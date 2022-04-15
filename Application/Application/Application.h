@@ -79,9 +79,9 @@ public slots:
 	//void zoomOut_clicked();
 	//void normalSize_clicked();
 	void exitButton_clicked();
-	void lightButton_clicked();
-	void LED1Button_clicked();
-	void LED2Button_clicked();
+	//void lightButton_clicked();
+	//void LED1Button_clicked();
+	//void LED2Button_clicked();
 	void rotateButton_clicked();
 
 	void saveImageButton_clicked();
@@ -90,7 +90,7 @@ public slots:
 	void measure();
 	//void sliderValueChanged(int position);
 
-	void checkBox_clicked();
+	//void checkBox_clicked();
 	void showImage(int cameraNum);
 
 	void Btn_Axile1_Enable_clicked();

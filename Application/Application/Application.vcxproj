@@ -56,7 +56,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <IncludePath>D:\Qt\5.14.1\msvc2017_64\include\QtCore;D:\Qt\5.14.1\msvc2017_64\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include;C:\Program Files\MVTec\HALCON-19.05-Progress\include\halconcpp;.\GoogolTech;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;D:\Qt\5.14.1\msvc2017_64\lib;.\Xygtest1\x64\Debug;.\GoogolTech;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\MVTec\HALCON-19.05-Progress\lib\x64-win64;D:\Qt\5.14.1\msvc2017_64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
@@ -65,8 +65,8 @@
       <AdditionalIncludeDirectories>D:\Qt\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\Application\GoogolTech;.\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\IOC0640\64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;..\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;IOC0640.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;Xygtest1.lib;gts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;D:\Projects\github\Application\Application\ProductionStatistic\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;D:\Projects\github\Application\Application\GoogolTech\gts.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">

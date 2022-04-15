@@ -1,5 +1,11 @@
 #include "GTS_800_ACC2.h"
 
+GTS_800_ACC2::GTS_800_ACC2(const char * deviceName, Time_Counter *timer, int timeOut) {
+	this->device_name = deviceName;
+	this->timer = timer;
+	this->timeOut_ms = timeOut;
+}
+
 bool GTS_800_ACC2::initialize() {
 	
 	// 如果指令执行返回值为非0，说明指令执行错误

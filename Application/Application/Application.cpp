@@ -16,9 +16,9 @@ Application::Application(QWidget *parent)
 	connect(ui.exitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
 	connect(ui.btn_saveImage, SIGNAL(clicked()), this, SLOT(saveImageButton_clicked()));
 	connect(ui.btn_reset, SIGNAL(clicked()), this, SLOT(resetButton_clicked()));
-	connect(ui.btn_light, SIGNAL(clicked()), this, SLOT(lightButton_clicked()));
-	connect(ui.btn_LED1, SIGNAL(clicked()), this, SLOT(LED1Button_clicked()));
-	connect(ui.btn_LED2, SIGNAL(clicked()), this, SLOT(LED2Button_clicked()));
+	//connect(ui.btn_light, SIGNAL(clicked()), this, SLOT(lightButton_clicked()));
+	//connect(ui.btn_LED1, SIGNAL(clicked()), this, SLOT(LED1Button_clicked()));
+	//connect(ui.btn_LED2, SIGNAL(clicked()), this, SLOT(LED2Button_clicked()));
 	connect(ui.btn_rotate, SIGNAL(clicked()), this, SLOT(rotateButton_clicked()));
 
 
@@ -116,8 +116,8 @@ Application::Application(QWidget *parent)
 	controller->textEdit = ui.textEdit_status;
 	controller->pc_done = true;
 
-	controller->initialize();
-	controller->lauchControllerThread();
+//	controller->initialize();
+	//controller->lauchControllerThread();
 }
 
 
@@ -177,35 +177,35 @@ void Application::btn_loadImage_clicked()
 
 
 void Application::Btn_Axile1_Enable_clicked() {
-	controller->gts_800.enableAxis(AXIS1_LOAD);
+	//controller->gts_800->enableAxis(AXIS1_LOAD);
 
 }
 
 void Application::Btn_JogIncrease_clicked() {
 
-	controller->gts_800.jogIncrease(AXIS1_LOAD);
+	//controller->gts_800->jogIncrease(AXIS1_LOAD);
 }
 
 void Application::Btn_JogDecrease_clicked() {
-	controller->gts_800.jogDecrease(AXIS1_LOAD);
+	//controller->gts_800->jogDecrease(AXIS1_LOAD);
 
 
 }
 
 void Application::Btn_Home_clicked() {
 
-	controller->gts_800.homePosition(AXIS1_LOAD);
+	//controller->gts_800->homePosition(AXIS1_LOAD);
 
 }
 
 void Application::Btn_LoadPos_clicked() {
 
-	controller->gts_800.MoveToPos(AXIS1_LOAD, LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
+	//controller->gts_800->MoveToPos(AXIS1_LOAD, LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
 }
 
 void Application::Btn_MeasurePos_clicked() {
 
-	controller->gts_800.MoveToPos(AXIS1_LOAD, MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
+	//controller->gts_800->MoveToPos(AXIS1_LOAD, MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
 }
 
 void Application::imageGrabbed(uint8_t * imgBufferPtr, int imgWidth, int imgHeight, int cameraNum) {

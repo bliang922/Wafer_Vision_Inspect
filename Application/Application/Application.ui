@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1709</width>
-    <height>1329</height>
+    <width>1621</width>
+    <height>1180</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,19 +25,6 @@
     </property>
     <property name="text">
      <string>camera2</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>1270</x>
-      <y>-10</y>
-      <width>54</width>
-      <height>12</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>camera3</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -63,7 +50,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab1">
      <attribute name="title">
@@ -197,11 +184,11 @@
            <string>Jog -</string>
           </property>
          </widget>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="toolButton_2">
           <property name="geometry">
            <rect>
             <x>30</x>
-            <y>160</y>
+            <y>180</y>
             <width>21</width>
             <height>21</height>
            </rect>
@@ -214,7 +201,7 @@
           <property name="geometry">
            <rect>
             <x>60</x>
-            <y>170</y>
+            <y>190</y>
             <width>54</width>
             <height>12</height>
            </rect>
@@ -223,11 +210,11 @@
            <string>轴正限位</string>
           </property>
          </widget>
-         <widget class="QToolButton" name="toolButton_2">
+         <widget class="QToolButton" name="toolButton_3">
           <property name="geometry">
            <rect>
             <x>30</x>
-            <y>190</y>
+            <y>210</y>
             <width>21</width>
             <height>21</height>
            </rect>
@@ -240,13 +227,94 @@
           <property name="geometry">
            <rect>
             <x>60</x>
-            <y>200</y>
+            <y>220</y>
             <width>54</width>
             <height>12</height>
            </rect>
           </property>
           <property name="text">
            <string>轴负限位</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>170</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_encPos">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>190</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos_2">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>170</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>规划位置</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos_3">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>190</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>反馈位置</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="toolButton_1">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>150</y>
+            <width>21</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_7">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>160</y>
+            <width>54</width>
+            <height>12</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴报警</string>
           </property>
          </widget>
         </widget>
@@ -268,7 +336,7 @@
       <x>1020</x>
       <y>580</y>
       <width>571</width>
-      <height>561</height>
+      <height>521</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -410,7 +478,7 @@
         <property name="geometry">
          <rect>
           <x>490</x>
-          <y>160</y>
+          <y>130</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -449,7 +517,7 @@
         <property name="geometry">
          <rect>
           <x>400</x>
-          <y>160</y>
+          <y>130</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -533,9 +601,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
-       <width>571</width>
-       <height>211</height>
+       <y>20</y>
+       <width>581</width>
+       <height>191</height>
       </rect>
      </property>
      <property name="title">
@@ -620,8 +688,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1021</width>
-      <height>1141</height>
+      <width>1011</width>
+      <height>1101</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -634,9 +702,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
-       <width>1020</width>
-       <height>1140</height>
+       <y>19</y>
+       <width>1500</width>
+       <height>1081</height>
       </rect>
      </property>
      <property name="text">
@@ -650,8 +718,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1709</width>
-     <height>23</height>
+     <width>1621</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

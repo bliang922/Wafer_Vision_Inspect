@@ -64,7 +64,7 @@
     <ClCompile Include="Time_Counter.cpp">
       <Filter>Source Files\FieldDevice</Filter>
     </ClCompile>
-    <ClCompile Include="GTS_800_ACC2.cpp">
+    <ClCompile Include="Axis.cpp">
       <Filter>Source Files\FieldDevice</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="Valve.h">
       <Filter>Header Files\FieldDevice</Filter>
     </ClInclude>
-    <ClInclude Include="GTS_800_ACC2.h">
+    <ClInclude Include="Axis.h">
       <Filter>Header Files\FieldDevice</Filter>
     </ClInclude>
   </ItemGroup>

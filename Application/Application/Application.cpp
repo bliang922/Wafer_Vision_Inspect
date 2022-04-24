@@ -20,28 +20,28 @@ Application::Application(QWidget *parent)
 	//connect(ui.btn_LED1, SIGNAL(clicked()), this, SLOT(LED1Button_clicked()));
 	//connect(ui.btn_LED2, SIGNAL(clicked()), this, SLOT(LED2Button_clicked()));
 	connect(ui.btn_rotate, SIGNAL(clicked()), this, SLOT(rotateButton_clicked()));
-
-
 	connect(ui.Btn_Axile1_Enable, SIGNAL(clicked()), this, SLOT(Btn_Axile1_Enable_clicked()));
-	connect(ui.Btn_JogIncrease, SIGNAL(clicked()), this, SLOT(Btn_JogIncrease_clicked()));
-	connect(ui.Btn_JogDecrease, SIGNAL(clicked()), this, SLOT(Btn_JogDecrease_clicked()));
+	connect(ui.Btn_JogIncrease, SIGNAL(pressed()), this, SLOT(Btn_JogIncrease_pressed()));
+	connect(ui.Btn_JogIncrease, SIGNAL(released()), this, SLOT(Btn_JogIncrease_released()));
+	connect(ui.Btn_JogDecrease, SIGNAL(pressed()), this, SLOT(Btn_JogDecrease_pressed()));
+	connect(ui.Btn_JogDecrease, SIGNAL(released()), this, SLOT(Btn_JogDecrease_released()));
+
 	connect(ui.Btn_Home, SIGNAL(clicked()), this, SLOT(Btn_Home_clicked()));
 	connect(ui.Btn_LoadPos, SIGNAL(clicked()), this, SLOT(Btn_LoadPos_clicked()));
 	connect(ui.Btn_MeasurePos, SIGNAL(clicked()), this, SLOT(Btn_MeasurePos_clicked()));
 
-
 	//	connect(camera,SIGNAL(sendGrabResultSigal(CGrabResultPtr)), this, SLOT(imageGrabbed(CGrabResultPtr)));
-
 
 	//ui.label->setFixedHeight(531);
 	//ui.label->setFixedWidth(591);
 	imageLabel[0] = ui.label;
-
+	HTuple handle;
 	//create window handles
 	for (int i = 0; i < DEVICE_NUM; i++) {
 		windowID[i] = imageLabel[i]->winId();
 		//	windowID[0] = ui.label->winId();
-		OpenWindow(0, 0, imageLabel[i]->width(), imageLabel[i]->height(), windowID[i], "visible", "", &windowHandle[i]);
+
+		OpenWindow(0, 0, ui.label->width(), ui.label->height(), windowID[i], "visible", "", &windowHandle[i]);
 
 		SetLineWidth(windowHandle[i], 2);
 		SetColor(windowHandle[i], "red");
@@ -109,15 +109,25 @@ Application::Application(QWidget *parent)
 	ui.table_alarm->show();
 	
 	controller = new Controller(NULL);
-	connect(controller, &Controller::loadPartDone, this, &Application::measure);
+	connect(controller, &Controller::HMI_update, this, &Application::controller_data_update);
 	connect(controller, &Controller::raiseAlarm, this, &Application::showAlarm);
 
 	controller->mtx = &this->mtx_ioc0640;
 	controller->textEdit = ui.textEdit_status;
 	controller->pc_done = true;
 
-//	controller->initialize();
-	//controller->lauchControllerThread();
+	int rt=controller->initialize();
+
+	if (!rt) {
+		ui.textEdit_status->append("gts_800 initialize failed");
+
+	}
+	else {
+		controller->gts_800_Connected = true;
+		//solenoid_rotateStation = new Valve((char*)"valve1", &timer[0], 5000);
+		ui.textEdit_status->append(QString::QString("gts_800 initialize success"));
+	}
+	controller->lauchControllerThread();
 }
 
 
@@ -133,7 +143,11 @@ void Application::exitButton_clicked() {
 void Application::resetButton_clicked() {
 
 	//ioc0640->solenoid_rotateStation->cmdReset = true;
+	for (int i = 0; i < AXIS_NUM; i++) {
+	
+		controller->axis[i]->reset();
 
+	}
 	//change the alarm texts back to normal
 	for (int i = 0; i < model_alarms->rowCount(); i++) {
 		for (int j = 0; j < model_alarms->columnCount(); j++) {
@@ -177,35 +191,50 @@ void Application::btn_loadImage_clicked()
 
 
 void Application::Btn_Axile1_Enable_clicked() {
-	//controller->gts_800->enableAxis(AXIS1_LOAD);
+	
+	if(controller->axis[0]->enable==false)
+	controller->axis[0]->enableAxis();
+	else controller->axis[0]->disableAxis();
 
 }
 
-void Application::Btn_JogIncrease_clicked() {
+void Application::Btn_JogIncrease_pressed() {
 
-	//controller->gts_800->jogIncrease(AXIS1_LOAD);
+	controller->axis[0]->jogIncrease();
 }
 
-void Application::Btn_JogDecrease_clicked() {
-	//controller->gts_800->jogDecrease(AXIS1_LOAD);
+void Application::Btn_JogIncrease_released() {
 
+	controller->axis[0]->jogStop();
+
+}
+
+void Application::Btn_JogDecrease_pressed() {
+	controller->axis[0]->jogDecrease();
+
+
+}
+
+void Application::Btn_JogDecrease_released() {
+
+	controller->axis[0]->jogStop();
 
 }
 
 void Application::Btn_Home_clicked() {
 
-	//controller->gts_800->homePosition(AXIS1_LOAD);
+	controller->axis[0]->homePosition();
 
 }
 
 void Application::Btn_LoadPos_clicked() {
 
-	//controller->gts_800->MoveToPos(AXIS1_LOAD, LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
+	controller->axis[0]->MoveToPos( LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
 }
 
 void Application::Btn_MeasurePos_clicked() {
 
-	//controller->gts_800->MoveToPos(AXIS1_LOAD, MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
+	controller->axis[0]->MoveToPos(MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
 }
 
 void Application::imageGrabbed(uint8_t * imgBufferPtr, int imgWidth, int imgHeight, int cameraNum) {
@@ -270,6 +299,30 @@ void Application::measure() {
 	product_stat.addOneProduct(std::string("LCM01").data(), MEASURE_RESULT_OK);
 	controller->pc_done = true;
 	//ui.table_statistic->update();
+}
+
+void Application::controller_data_update() {
+	ui.label_pos->setText(QString::number(controller->axis[0]->prfPos));
+	ui.label_encPos->setText(QString::number(controller->axis[0]->encPos));
+
+	bitset<32> bits(controller->axis[0]->status);
+
+	if (controller->axis[0]->enable)
+				ui.Btn_Axile1_Enable->setStyleSheet("background-color:green");
+	else ui.Btn_Axile1_Enable->setStyleSheet("background-color:white");
+
+	//32位status字第一位 驱动器报警，第5位-正限位，第6位-负限位
+	if(controller->axis[0]->status& 0x02)
+		ui.toolButton_1->setStyleSheet("background-color:red");
+	else ui.toolButton_1->setStyleSheet("background-color:white");
+
+	if (controller->axis[0]->status & 0x020)
+		ui.toolButton_2->setStyleSheet("background-color:red");
+	else ui.toolButton_2->setStyleSheet("background-color:white");	
+	
+	if (controller->axis[0]->status & 0x040)
+		ui.toolButton_3->setStyleSheet("background-color:red");
+	else ui.toolButton_3->setStyleSheet("background-color:white");
 }
 
 void Application::rotateButton_clicked() {

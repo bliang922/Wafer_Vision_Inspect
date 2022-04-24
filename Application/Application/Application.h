@@ -28,7 +28,7 @@
 #include "Algorithm.h"
 #include <QtWidgets>
 #include<thread>
-
+#include <bitset>
 
 using namespace HalconCpp;
 using namespace Qt;
@@ -83,7 +83,7 @@ public slots:
 	//void LED1Button_clicked();
 	//void LED2Button_clicked();
 	void rotateButton_clicked();
-
+	void controller_data_update();
 	void saveImageButton_clicked();
 	void resetButton_clicked();
 	void imageGrabbed(uint8_t *, int, int, int);
@@ -94,14 +94,18 @@ public slots:
 	void showImage(int cameraNum);
 
 	void Btn_Axile1_Enable_clicked();
-	void Btn_JogIncrease_clicked();
-	void Btn_JogDecrease_clicked();
+	void Btn_JogIncrease_pressed();
+	void Btn_JogIncrease_released();
+	void Btn_JogDecrease_pressed();
+	void Btn_JogDecrease_released();
 	void Btn_Home_clicked();
 	void Btn_LoadPos_clicked();
 	void Btn_MeasurePos_clicked();
-	//protected:
-	//	void mouseMoveEvent(QMouseEvent *event) override;
-	//	void mousePressEvent(QMouseEvent *event) override;
+protected:
+	//void mouseMoveEvent(QMouseEvent *event) override;
+	/*void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;*/
+
 	//	void wheelEvent(QWheelEvent *event) override;
 
 /************************************SQLite**************************************************************************/

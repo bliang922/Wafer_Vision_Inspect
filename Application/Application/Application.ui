@@ -50,7 +50,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab1">
      <attribute name="title">
@@ -63,26 +63,6 @@
         <y>-20</y>
         <width>621</width>
         <height>351</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>相机参数</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>IO控制</string>
-     </attribute>
-     <widget class="QTableView" name="table_IO">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>631</width>
-        <height>461</height>
        </rect>
       </property>
      </widget>
@@ -329,6 +309,21 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>IO控制</string>
+     </attribute>
+     <widget class="QTableView" name="table_IO">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>631</width>
+        <height>461</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget_3">
     <property name="geometry">
@@ -425,53 +420,30 @@
        <property name="title">
         <string>Buttons</string>
        </property>
-       <widget class="QPushButton" name="btn_loadImage">
+       <widget class="QPushButton" name="btn_startGrab">
         <property name="geometry">
          <rect>
           <x>12</x>
-          <y>65</y>
+          <y>26</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
-         <string>触发</string>
+         <string>开始采图</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_loadcontinuImage">
+       <widget class="QPushButton" name="btn_stopGrab">
         <property name="geometry">
          <rect>
           <x>12</x>
-          <y>99</y>
+          <y>60</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
-         <string>连续触发</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>171</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="sendButton">
-        <property name="geometry">
-         <rect>
-          <x>190</x>
-          <y>20</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Send</string>
+         <string>停止采图</string>
         </property>
        </widget>
        <widget class="QPushButton" name="exitButton">
@@ -491,26 +463,26 @@
         <property name="geometry">
          <rect>
           <x>113</x>
-          <y>65</y>
+          <y>26</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
-         <string>LED1开关</string>
+         <string>上料位</string>
         </property>
        </widget>
        <widget class="QPushButton" name="btn_LED2">
         <property name="geometry">
          <rect>
           <x>113</x>
-          <y>99</y>
+          <y>60</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
-         <string>LED2开关</string>
+         <string>测量位</string>
         </property>
        </widget>
        <widget class="QPushButton" name="btn_reset">
@@ -530,7 +502,7 @@
         <property name="geometry">
          <rect>
           <x>215</x>
-          <y>65</y>
+          <y>26</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -543,7 +515,7 @@
         <property name="geometry">
          <rect>
           <x>215</x>
-          <y>99</y>
+          <y>60</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -555,8 +527,8 @@
        <widget class="QPushButton" name="btn_importData">
         <property name="geometry">
          <rect>
-          <x>316</x>
-          <y>99</y>
+          <x>110</x>
+          <y>100</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -568,14 +540,40 @@
        <widget class="QPushButton" name="btn_saveImage">
         <property name="geometry">
          <rect>
-          <x>316</x>
-          <y>65</y>
+          <x>10</x>
+          <y>100</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
          <string>保存图片</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="horizontalSlider">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>30</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>40</y>
+          <width>54</width>
+          <height>12</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>增益</string>
         </property>
        </widget>
       </widget>
@@ -719,7 +717,7 @@
      <x>0</x>
      <y>0</y>
      <width>1621</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

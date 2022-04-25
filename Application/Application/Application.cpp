@@ -8,8 +8,8 @@ Application::Application(QWidget *parent)
 /*******************************************Image process Initialize*******************************************************************/
 
 	//connect button commands to slots
-	connect(ui.btn_loadImage, SIGNAL(clicked()), this, SLOT(btn_loadImage_clicked()));
-	connect(ui.btn_loadcontinuImage, SIGNAL(clicked()), this, SLOT(btn_loadcontinuImage_clicked()));
+	connect(ui.btn_startGrab, SIGNAL(clicked()), this, SLOT(btn_startGrab_clicked()));
+	connect(ui.btn_stopGrab, SIGNAL(clicked()), this, SLOT(btn_stopGrab_clicked()));
 	//	connect(ui.actionZoomIn, SIGNAL(triggered()), this, SLOT(zoomIn_clicked()));
 	//	connect(ui.actionZoomOut, SIGNAL(triggered()), this, SLOT(zoomOut_clicked()));
 	//	connect(ui.actionNormalSize, SIGNAL(triggered()), this, SLOT(normalSize_clicked()));
@@ -51,17 +51,28 @@ Application::Application(QWidget *parent)
 
 	}
 
+	camera[0] = new TeleDyneCamera(NULL);
+	camera[0]->textEdit = ui.textEdit_status;
+	camera[0]->mtx = &mtx_camera;
+
 	//set HMI camera status icon color
-	//if (camera[0]->m_bOpenDevice)   ui.Indicator_Camera->setStyleSheet("background-color:rgb(0,255,127)");
-	//else ui.Indicator_Camera->setStyleSheet("background-color:rgb(128,138,135)");
+
+	if (camera[0]->initialize()) {
+		ui.textEdit_status->append("camera initialize success.");
+	}
+	else {
+		ui.textEdit_status->append("camera initialize failed.");
+	}
+
+	if (camera[0]->isOpened)   ui.Indicator_Camera->setStyleSheet("background-color:rgb(0,255,127)");
+	else ui.Indicator_Camera->setStyleSheet("background-color:rgb(128,138,135)");
+
+
 
 	//if (camera[1]->m_bOpenDevice)  ui.Indicator_Camera2->setStyleSheet("background-color:rgb(0,255,127)");
 	//else ui.Indicator_Camera2->setStyleSheet("background-color:rgb(128,138,135)");
-
 	//if (camera[2]->m_bOpenDevice)  ui.Indicator_Camera3->setStyleSheet("background-color:rgb(0,255,127)");
 	//else ui.Indicator_Camera3->setStyleSheet("background-color:rgb(128,138,135)");
-
-
 
 /*******************************************ModbusTCP communication Initialize*******************************************************************/
 
@@ -161,7 +172,6 @@ void Application::resetButton_clicked() {
 void Application::saveImageButton_clicked() {
 
 	for (int i = 0; i < DEVICE_NUM; i++) {
-		if (cameraChecked[i] == 2) {
 			std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
 			std::string s(30, '\0');
@@ -174,19 +184,18 @@ void Application::saveImageButton_clicked() {
 			WriteImage(image[i], "bmp", 0, (HTuple)(p));
 			ui.textEdit_status->append(QString::QString("Camera ") + std::to_string(i).data() + " Save Image Success!");
 
-		}
 	}
 
 }
 
-void Application::btn_loadcontinuImage_clicked() {
-
+void Application::btn_startGrab_clicked() {
+	camera[0]->startGrab();
 
 }
 
-void Application::btn_loadImage_clicked()
+void Application::btn_stopGrab_clicked()
 {
-
+	camera[0]->stopGrab();
 }
 
 
@@ -295,7 +304,7 @@ void Application::query_returned(int argc, char **argv, char **azColName) {
 
 void Application::measure() {
 
-	this->btn_loadImage_clicked();
+	this->btn_startGrab_clicked();
 	product_stat.addOneProduct(std::string("LCM01").data(), MEASURE_RESULT_OK);
 	controller->pc_done = true;
 	//ui.table_statistic->update();

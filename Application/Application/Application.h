@@ -29,6 +29,7 @@
 #include <QtWidgets>
 #include<thread>
 #include <bitset>
+#include "TeleDyneCamera.h"
 
 using namespace HalconCpp;
 using namespace Qt;
@@ -67,13 +68,12 @@ public:
 	//Luster camera
 	TeleDyneCamera *camera[DEVICE_NUM];
 	std::mutex mtx_camera, mtx_sql, mtx_modbus, mtx_ioc0640, mtx_algorithm;
-	int cameraChecked[DEVICE_NUM];
 	//void zoomImage(HTuple factor, HObject *);
 	//void showImage(HObject &image,HTuple& windowHandle);
 
 public slots:
-	void btn_loadImage_clicked();
-	void btn_loadcontinuImage_clicked();
+	void btn_startGrab_clicked();
+	void btn_stopGrab_clicked();
 
 	//void zoomIn_clicked();
 	//void zoomOut_clicked();

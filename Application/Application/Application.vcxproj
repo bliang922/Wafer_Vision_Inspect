@@ -62,11 +62,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Qt\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\ProductionStatistic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Qt\5.14.1\msvc2017_64\include\QtWidgets;.\Lusterinc\LBAS CAPTURE\Development\Includes;$(PYLON_DEV_DIR)\include;.\libmodbus-master\src;.\DNAssist-master\sqlite3;C:\Program Files\MVTec\HALCON-12.0\include\halconcpp;C:\Program Files\MVTec\HALCON-12.0\include;.\ProductionStatistic;.\Sapera\Include;.\Sapera\Classes\Basic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;C:\Users\Administrator\Desktop\Application\Application\ProductionStatistic\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;gts.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Basler\pylon 5\Development\lib\x64;.\DNAssist-master\sqlite3;.\libmodbus-master\src\win32\x64\Debug;.\Lusterinc\LBAS CAPTURE\Development\Libraries\win64;C:\Program Files\MVTec\HALCON-12.0\lib\x64-win64;C:\Users\Administrator\Desktop\Application\Application\ProductionStatistic\x64\Debug;.\Sapera\Lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>halconcpp.lib;halconcppxl.lib;modbus.lib;sqlite3.lib;MvCameraControl.lib;ProductionStatistic.lib;gts.lib;SapClassBasic.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">

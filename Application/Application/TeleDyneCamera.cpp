@@ -1,12 +1,16 @@
 #include "TeleDyneCamera.h"
 
 TeleDyneCamera *classPointer = NULL;
-void AcqCallback(SapXferCallbackInfo *pInfo)
+
+
+ void AcqCallback(SapXferCallbackInfo *pInfo)
 {
 	SapView *pView = (SapView *)pInfo->GetContext();
 
 	// Resfresh view
-	pView->Show();
+//	pView->Show();
+
+	emit classPointer->sendGrabResultSigal(classPointer->cameraNum);
 }
 
 TeleDyneCamera::TeleDyneCamera(QObject *parent)
@@ -23,7 +27,7 @@ bool TeleDyneCamera::initialize() {
 
 	acqServerName = "Xtium-CL_MX4_1";
 	acqDeviceNumber = 0;
-	configFilename = ".\\T_LA_CM_08K08A_00_R_FreeRun_Default.ccf";
+	configFilename = ".\\WaferInspect.ccf";
 	//"C:\\Program Files\\Teledyne DALSA\\Sapera\\CamFiles\\User\\T_LA_CM_08K08A_00_R_FreeRun_Default.ccf"
 	SapLocation loc(acqServerName, acqDeviceNumber);
 
@@ -31,8 +35,8 @@ bool TeleDyneCamera::initialize() {
 	{
 		Acq = new SapAcquisition(loc, configFilename);
 		Buffers = new SapBuffer(1, Acq);
-		View = new SapView(Buffers, SapHwndAutomatic);
-		Xfer = new SapAcqToBuf(Acq, Buffers, AcqCallback, View);
+		//View = new SapView(Buffers, SapHwndAutomatic);
+		Xfer = new SapAcqToBuf(Acq, Buffers, AcqCallback);
 
 		// Create acquisition object
 		if (Acq && !*Acq && !Acq->Create())
@@ -104,7 +108,10 @@ bool TeleDyneCamera::initialize() {
 void TeleDyneCamera::startGrab() {
 
 	// Start continous grab
-	Xfer->Grab();
+//	Acq->SoftwareTrigger(SapAcquisition::SoftwareTriggerExt);
+
+//	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	Xfer->Snap();
 }
 
 void TeleDyneCamera::stopGrab() {

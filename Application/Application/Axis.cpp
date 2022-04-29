@@ -107,15 +107,15 @@ bool Axis::homePosition() {
 	tHomePrm.moveDir = -1;
 	tHomePrm.indexDir = -1;
 	tHomePrm.edge = 0;
-	tHomePrm.velHigh = 50;
-	tHomePrm.velLow = 20;
-	tHomePrm.acc = 10;
-	tHomePrm.dec = 10;
+	tHomePrm.velHigh = vel_high;
+	tHomePrm.velLow = vel_low;
+	tHomePrm.acc = 5;
+	tHomePrm.dec = 5;
 	tHomePrm.smoothTime = 1;
 	tHomePrm.searchHomeDistance = 0;
 	tHomePrm.searchIndexDistance = 0;
 	tHomePrm.escapeStep = 0;
-	tHomePrm.homeOffset = HOME_OFFSET;
+	tHomePrm.homeOffset = home_offset;
 	rt = GT_GoHome(axisNum, &tHomePrm);
 
 	step_home = true;
@@ -139,11 +139,11 @@ void Axis::jogIncrease() {
 	GT_PrfJog(axisNum);
 	// 读取Jog运动参数
 	GT_GetJogPrm(axisNum, &jog);
-	jog.acc = 10;
-	jog.dec = 10;
+	jog.acc = 0.0625;
+	jog.dec = 0.0625;
 	GT_SetJogPrm(axisNum, &jog);
 	
-	GT_SetVel(axisNum, 50);
+	GT_SetVel(axisNum, vel_jog);
 	GT_Update(1 << (axisNum - 1));
 
 }
@@ -158,7 +158,7 @@ void Axis::jogDecrease() {
 	jog.dec = 0.0625;
 	GT_SetJogPrm(axisNum, &jog);
 
-	GT_SetVel(axisNum, -50);
+	GT_SetVel(axisNum, -vel_jog);
 	GT_Update(1 << (axisNum - 1));
 
 }

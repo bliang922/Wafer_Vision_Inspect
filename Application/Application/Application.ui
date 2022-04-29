@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1621</width>
+    <width>1654</width>
     <height>1180</height>
    </rect>
   </property>
@@ -304,6 +304,162 @@
          <property name="title">
           <string>轴2-旋转平台</string>
          </property>
+         <widget class="QLabel" name="label_encPos2">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>190</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_JogIncrease2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>80</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Jog +</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="toolButton_4">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>160</y>
+            <width>21</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos_4">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>170</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>规划位置</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Angel2">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>110</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>角度2</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Axile2_Enable">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>50</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴使能</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Home_2">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>50</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Home</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos2">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>170</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_pos_6">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>190</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>反馈位置</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_Angel1">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>80</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>角度1</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_9">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>160</y>
+            <width>54</width>
+            <height>12</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>轴报警</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="Btn_JogDecrease2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>110</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Jog -</string>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -498,32 +654,6 @@
          <string>Reset</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_light">
-        <property name="geometry">
-         <rect>
-          <x>215</x>
-          <y>26</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>灯</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btn_rotate">
-        <property name="geometry">
-         <rect>
-          <x>215</x>
-          <y>60</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>旋转</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="btn_importData">
         <property name="geometry">
          <rect>
@@ -574,6 +704,32 @@
         </property>
         <property name="text">
          <string>增益</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Btn_Angel1_2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>60</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>角度1</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Btn_Angel2_2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>100</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>角度2</string>
         </property>
        </widget>
       </widget>
@@ -716,8 +872,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1621</width>
-     <height>23</height>
+     <width>1654</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>

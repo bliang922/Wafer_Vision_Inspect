@@ -82,17 +82,16 @@ public slots:
 	//void lightButton_clicked();
 	//void LED1Button_clicked();
 	//void LED2Button_clicked();
-	void rotateButton_clicked();
 	void controller_data_update();
 	void saveImageButton_clicked();
 	void resetButton_clicked();
-	void imageGrabbed(uint8_t *, int, int, int);
+	void imageGrabbed(int);
 	void measure();
 	//void sliderValueChanged(int position);
 
 	//void checkBox_clicked();
 	void showImage(int cameraNum);
-
+	
 	void Btn_Axile1_Enable_clicked();
 	void Btn_JogIncrease_pressed();
 	void Btn_JogIncrease_released();
@@ -101,6 +100,16 @@ public slots:
 	void Btn_Home_clicked();
 	void Btn_LoadPos_clicked();
 	void Btn_MeasurePos_clicked();
+
+	void Btn_Axile2_Enable_clicked();
+	void Btn_Home_2_clicked();
+	void Btn_JogIncrease2_pressed();
+	void Btn_JogIncrease2_released();
+	void Btn_JogDecrease2_pressed();
+	void Btn_JogDecrease2_released();
+	void Btn_Angel1_clicked();
+	void Btn_Angel2_clicked();
+
 protected:
 	//void mouseMoveEvent(QMouseEvent *event) override;
 	/*void mousePressEvent(QMouseEvent *event) override;

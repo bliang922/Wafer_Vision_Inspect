@@ -19,8 +19,13 @@
 
 #define LOAD_POSITION		250000
 #define MEASURE_POSITION  50000
-#define LOAD_UNLOAD_VELOCITY 50
-#define ROTATE_VELOCITY 50
+#define ROTATE_ANGEL1  11250
+#define ROTATE_ANGEL2  22500
+
+#define LOAD_UNLOAD_VELOCITY 100
+#define ROTATE_VELOCITY 20
+#define AXIS1_HOME_OFFSET		20000
+#define AXIS2_HOME_OFFSET		2000
 
 class Controller : public QObject
 {
@@ -63,6 +68,7 @@ public:
 	bool pc_done = false;
 	bool Buzzor_on = false;
 	bool Vaccum_on = false;
+	bool strobe_on = false;
 
 	bool step1_loadPart = false;
 	bool step2_reload = false;

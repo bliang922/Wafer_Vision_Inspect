@@ -31,7 +31,7 @@ public:
 	bool isOpened;
 	QTextEdit *textEdit;
 	std::mutex *mtx;
-
+	int cameraNum;
 	uint8_t * ptrGrabResult;
 
 	SapAcquisition	*Acq = NULL;
@@ -51,6 +51,6 @@ public slots:
 	void stopGrab();
 
 signals:
-	void sendGrabResultSigal(uint8_t * imgBufferPtr, int imgWidth, int imgHeight);
+	void sendGrabResultSigal(int cameraNum);
 
 };

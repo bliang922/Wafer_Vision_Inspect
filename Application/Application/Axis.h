@@ -7,7 +7,6 @@
 #include <thread>
 #include <stddef.h>
 
-#define HOME_OFFSET		20000
 
 class Axis
 {
@@ -42,7 +41,7 @@ public:
 	bool out_open = false;
 	bool previous_cmdOpen = false;
 	bool previous_cmdClose = false;
-
+	int vel_low, vel_high,home_offset,vel_jog;
 	Time_Counter timer;
 public:
 	bool initialize();

@@ -19,18 +19,7 @@ Application::Application(QWidget *parent)
 	//connect(ui.btn_light, SIGNAL(clicked()), this, SLOT(lightButton_clicked()));
 	//connect(ui.btn_LED1, SIGNAL(clicked()), this, SLOT(LED1Button_clicked()));
 	//connect(ui.btn_LED2, SIGNAL(clicked()), this, SLOT(LED2Button_clicked()));
-	connect(ui.btn_rotate, SIGNAL(clicked()), this, SLOT(rotateButton_clicked()));
-	connect(ui.Btn_Axile1_Enable, SIGNAL(clicked()), this, SLOT(Btn_Axile1_Enable_clicked()));
-	connect(ui.Btn_JogIncrease, SIGNAL(pressed()), this, SLOT(Btn_JogIncrease_pressed()));
-	connect(ui.Btn_JogIncrease, SIGNAL(released()), this, SLOT(Btn_JogIncrease_released()));
-	connect(ui.Btn_JogDecrease, SIGNAL(pressed()), this, SLOT(Btn_JogDecrease_pressed()));
-	connect(ui.Btn_JogDecrease, SIGNAL(released()), this, SLOT(Btn_JogDecrease_released()));
 
-	connect(ui.Btn_Home, SIGNAL(clicked()), this, SLOT(Btn_Home_clicked()));
-	connect(ui.Btn_LoadPos, SIGNAL(clicked()), this, SLOT(Btn_LoadPos_clicked()));
-	connect(ui.Btn_MeasurePos, SIGNAL(clicked()), this, SLOT(Btn_MeasurePos_clicked()));
-
-	//	connect(camera,SIGNAL(sendGrabResultSigal(CGrabResultPtr)), this, SLOT(imageGrabbed(CGrabResultPtr)));
 
 	//ui.label->setFixedHeight(531);
 	//ui.label->setFixedWidth(591);
@@ -54,6 +43,8 @@ Application::Application(QWidget *parent)
 	camera[0] = new TeleDyneCamera(NULL);
 	camera[0]->textEdit = ui.textEdit_status;
 	camera[0]->mtx = &mtx_camera;
+	camera[0]->cameraNum = 0;
+	connect(camera[0], SIGNAL(sendGrabResultSigal(int)), this, SLOT(imageGrabbed(int)));
 
 	//set HMI camera status icon color
 
@@ -123,6 +114,27 @@ Application::Application(QWidget *parent)
 	connect(controller, &Controller::HMI_update, this, &Application::controller_data_update);
 	connect(controller, &Controller::raiseAlarm, this, &Application::showAlarm);
 
+	//axis1
+	connect(ui.Btn_Axile1_Enable, SIGNAL(clicked()), this, SLOT(Btn_Axile1_Enable_clicked()));
+	connect(ui.Btn_JogIncrease, SIGNAL(pressed()), this, SLOT(Btn_JogIncrease_pressed()));
+	connect(ui.Btn_JogIncrease, SIGNAL(released()), this, SLOT(Btn_JogIncrease_released()));
+	connect(ui.Btn_JogDecrease, SIGNAL(pressed()), this, SLOT(Btn_JogDecrease_pressed()));
+	connect(ui.Btn_JogDecrease, SIGNAL(released()), this, SLOT(Btn_JogDecrease_released()));
+
+	connect(ui.Btn_Home, SIGNAL(clicked()), this, SLOT(Btn_Home_clicked()));
+	connect(ui.Btn_LoadPos, SIGNAL(clicked()), this, SLOT(Btn_LoadPos_clicked()));
+	connect(ui.Btn_MeasurePos, SIGNAL(clicked()), this, SLOT(Btn_MeasurePos_clicked()));
+
+	//axis2
+	connect(ui.Btn_Axile2_Enable, SIGNAL(clicked()), this, SLOT(Btn_Axile2_Enable_clicked()));
+	connect(ui.Btn_Home_2, SIGNAL(clicked()), this, SLOT(Btn_Home_2_clicked()));
+	connect(ui.Btn_JogDecrease2, SIGNAL(pressed()), this, SLOT(Btn_JogDecrease2_pressed()));
+	connect(ui.Btn_JogDecrease2, SIGNAL(released()), this, SLOT(Btn_JogDecrease2_released()));
+	connect(ui.Btn_JogIncrease2, SIGNAL(pressed()), this, SLOT(Btn_JogIncrease2_pressed()));
+	connect(ui.Btn_JogIncrease2, SIGNAL(released()), this, SLOT(Btn_JogIncrease2_released()));
+	connect(ui.Btn_Angel1, SIGNAL(clicked()), this, SLOT(Btn_Angel1_clicked()));
+	connect(ui.Btn_Angel2, SIGNAL(clicked()), this, SLOT(Btn_Angel2_clicked()));
+
 	controller->mtx = &this->mtx_ioc0640;
 	controller->textEdit = ui.textEdit_status;
 	controller->pc_done = true;
@@ -131,122 +143,23 @@ Application::Application(QWidget *parent)
 
 	if (!rt) {
 		ui.textEdit_status->append("gts_800 initialize failed");
+		ui.Indicator_Motion->setStyleSheet("background-color:rgb(128,138,135)");
 
 	}
 	else {
 		controller->gts_800_Connected = true;
 		//solenoid_rotateStation = new Valve((char*)"valve1", &timer[0], 5000);
 		ui.textEdit_status->append(QString::QString("gts_800 initialize success"));
+		ui.Indicator_Motion->setStyleSheet("background-color:rgb(0,255,127)");
+
 	}
 	controller->lauchControllerThread();
 }
 
-
-
-
-
 /*******************************************Image *******************************************************************/
-void Application::exitButton_clicked() {
-
-	QApplication::quit();
-}
-
-void Application::resetButton_clicked() {
-
-	//ioc0640->solenoid_rotateStation->cmdReset = true;
-	for (int i = 0; i < AXIS_NUM; i++) {
-	
-		controller->axis[i]->reset();
-
-	}
-	//change the alarm texts back to normal
-	for (int i = 0; i < model_alarms->rowCount(); i++) {
-		for (int j = 0; j < model_alarms->columnCount(); j++) {
-			if (model_alarms->item(i, j)->foreground().color() == red)
-				model_alarms->item(i, j)->setForeground(black);
-		}
-
-	}
-}
-
-void Application::saveImageButton_clicked() {
-
-	for (int i = 0; i < DEVICE_NUM; i++) {
-			std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-
-			std::string s(30, '\0');
-			std::strftime(&s[0], s.size(), "%Y%m%d_%H%M%S", std::localtime(&now));
-
-			//WriteImage(image[i], "bmp", 0, "D:\\Projects\\BackLightInspect\\QWidget_Halcon_LoadImage\\pic\\pic1.bmp" );
-
-			string filename = ".\\pic\\camera" + std::to_string(i) + "_" + s;
-			const char * p = filename.data();
-			WriteImage(image[i], "bmp", 0, (HTuple)(p));
-			ui.textEdit_status->append(QString::QString("Camera ") + std::to_string(i).data() + " Save Image Success!");
-
-	}
-
-}
-
-void Application::btn_startGrab_clicked() {
-	camera[0]->startGrab();
-
-}
-
-void Application::btn_stopGrab_clicked()
-{
-	camera[0]->stopGrab();
-}
 
 
-void Application::Btn_Axile1_Enable_clicked() {
-	
-	if(controller->axis[0]->enable==false)
-	controller->axis[0]->enableAxis();
-	else controller->axis[0]->disableAxis();
-
-}
-
-void Application::Btn_JogIncrease_pressed() {
-
-	controller->axis[0]->jogIncrease();
-}
-
-void Application::Btn_JogIncrease_released() {
-
-	controller->axis[0]->jogStop();
-
-}
-
-void Application::Btn_JogDecrease_pressed() {
-	controller->axis[0]->jogDecrease();
-
-
-}
-
-void Application::Btn_JogDecrease_released() {
-
-	controller->axis[0]->jogStop();
-
-}
-
-void Application::Btn_Home_clicked() {
-
-	controller->axis[0]->homePosition();
-
-}
-
-void Application::Btn_LoadPos_clicked() {
-
-	controller->axis[0]->MoveToPos( LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
-}
-
-void Application::Btn_MeasurePos_clicked() {
-
-	controller->axis[0]->MoveToPos(MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
-}
-
-void Application::imageGrabbed(uint8_t * imgBufferPtr, int imgWidth, int imgHeight, int cameraNum) {
+void Application::imageGrabbed(int cameraNum) {
 
 	//Basler Camera
 	/*//直接用halcon算子转化为HObject 格式	(此算子只适用单个通道)
@@ -255,7 +168,12 @@ void Application::imageGrabbed(uint8_t * imgBufferPtr, int imgWidth, int imgHeig
 	GetImageSize(image, &imgWidth, &imgHeight);*/
 
 	//Luster Camera
-	GenImage1(&image[cameraNum], "byte", (Hlong)imgWidth, (Hlong)imgHeight, (Hlong)imgBufferPtr);
+	imgWidth = camera[0]->Buffers->GetWidth();
+	imgHeight = camera[0]->Buffers->GetHeight();
+	uint8_t *pImageBuffer=new uint8_t[camera[0]->Buffers->GetWidth() *camera[0]->Buffers->GetHeight()];
+
+	camera[0]->Buffers->Read(0, imgWidth *imgHeight, pImageBuffer);
+	GenImage1(&image[cameraNum], "byte", (Hlong)imgWidth, (Hlong)imgHeight, (Hlong)pImageBuffer);
 	//WriteImage(img, 'tiff', 0, "D://1.tif");
 	//WriteImage(image[cameraNum], "bmp", 0, "D:\\1.bmp");
 	SetPart(windowHandle[cameraNum], 0, 0, imgHeight, imgWidth);
@@ -263,8 +181,8 @@ void Application::imageGrabbed(uint8_t * imgBufferPtr, int imgWidth, int imgHeig
 	if (image[cameraNum].IsInitialized()) {
 
 		DispObj(image[cameraNum], windowHandle[cameraNum]);
-		algorithm[cameraNum]->image = image[cameraNum];
-		algorithm[cameraNum]->lauchCamera_Thread();
+		//algorithm[cameraNum]->image = image[cameraNum];
+		//algorithm[cameraNum]->lauchCamera_Thread();
 		//algorithm[cameraNum]->processImage();
 	}
 
@@ -313,15 +231,20 @@ void Application::measure() {
 void Application::controller_data_update() {
 	ui.label_pos->setText(QString::number(controller->axis[0]->prfPos));
 	ui.label_encPos->setText(QString::number(controller->axis[0]->encPos));
+	ui.label_pos2->setText(QString::number(controller->axis[1]->prfPos));
+	ui.label_encPos2->setText(QString::number(controller->axis[1]->encPos));
 
 	bitset<32> bits(controller->axis[0]->status);
 
 	if (controller->axis[0]->enable)
-				ui.Btn_Axile1_Enable->setStyleSheet("background-color:green");
+		ui.Btn_Axile1_Enable->setStyleSheet("background-color:green");
 	else ui.Btn_Axile1_Enable->setStyleSheet("background-color:white");
 
+	if (controller->axis[1]->enable)
+		ui.Btn_Axile2_Enable->setStyleSheet("background-color:green");
+	else ui.Btn_Axile2_Enable->setStyleSheet("background-color:white");
 	//32位status字第一位 驱动器报警，第5位-正限位，第6位-负限位
-	if(controller->axis[0]->status& 0x02)
+	if(controller->axis[0])
 		ui.toolButton_1->setStyleSheet("background-color:red");
 	else ui.toolButton_1->setStyleSheet("background-color:white");
 
@@ -332,16 +255,14 @@ void Application::controller_data_update() {
 	if (controller->axis[0]->status & 0x040)
 		ui.toolButton_3->setStyleSheet("background-color:red");
 	else ui.toolButton_3->setStyleSheet("background-color:white");
+	//axis2
+	if (controller->axis[1]->status & 0x02)
+		ui.toolButton_4->setStyleSheet("background-color:red");
+	else ui.toolButton_4->setStyleSheet("background-color:white");
+
+
 }
 
-void Application::rotateButton_clicked() {
-	controller->AUTO_MODE = false;
-
-	if (controller->solenoid_rotateStation->in_closed)
-		controller->step1_loadPart = true;
-	else if (controller->solenoid_rotateStation->in_opened)
-		controller->step2_reload = true;
-}
 
 void Application::showAlarm(const char* deviceName, const char* discription) {
 
@@ -364,6 +285,160 @@ void Application::showAlarm(const char* deviceName, const char* discription) {
 	items.append(discrp);
 
 	model_alarms->appendRow(items);
+}
+
+void Application::exitButton_clicked() {
+
+	controller->close();
+	camera[0]->close();
+	QApplication::quit();
+}
+
+void Application::resetButton_clicked() {
+
+	//ioc0640->solenoid_rotateStation->cmdReset = true;
+	for (int i = 0; i < AXIS_NUM; i++) {
+
+		controller->axis[i]->reset();
+
+	}
+	//change the alarm texts back to normal
+	for (int i = 0; i < model_alarms->rowCount(); i++) {
+		for (int j = 0; j < model_alarms->columnCount(); j++) {
+			if (model_alarms->item(i, j)->foreground().color() == red)
+				model_alarms->item(i, j)->setForeground(black);
+		}
+
+	}
+}
+
+void Application::saveImageButton_clicked() {
+
+	for (int i = 0; i < DEVICE_NUM; i++) {
+		std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+
+		std::string s(30, '\0');
+		std::strftime(&s[0], s.size(), "%Y%m%d_%H%M%S", std::localtime(&now));
+
+		//WriteImage(image[i], "bmp", 0, "D:\\Projects\\BackLightInspect\\QWidget_Halcon_LoadImage\\pic\\pic1.bmp" );
+
+		string filename = ".\\pic\\camera" + std::to_string(i) + "_" + s;
+		const char * p = filename.data();
+		WriteImage(image[i], "bmp", 0, (HTuple)(p));
+		ui.textEdit_status->append(QString::QString("Camera ") + std::to_string(i).data() + " Save Image Success!");
+
+	}
+
+}
+
+void Application::btn_startGrab_clicked() {
+	camera[0]->startGrab();
+
+}
+
+void Application::btn_stopGrab_clicked()
+{
+	camera[0]->stopGrab();
+}
+
+//axis1 power on
+void Application::Btn_Axile1_Enable_clicked() {
+
+	if (controller->axis[0]->enable == false)
+		controller->axis[0]->enableAxis();
+	else controller->axis[0]->disableAxis();
+
+}
+//axis2 power on
+void Application::Btn_Axile2_Enable_clicked() {
+
+	if (controller->axis[1]->enable == false)
+		controller->axis[1]->enableAxis();
+	else controller->axis[1]->disableAxis();
+
+}
+//axis1 jog
+void Application::Btn_JogIncrease_pressed() {
+
+	controller->axis[0]->jogIncrease();
+}
+
+void Application::Btn_JogIncrease_released() {
+
+	controller->axis[0]->jogStop();
+
+}
+
+void Application::Btn_JogDecrease_pressed() {
+	controller->axis[0]->jogDecrease();
 
 
 }
+
+void Application::Btn_JogDecrease_released() {
+
+	controller->axis[0]->jogStop();
+
+}
+
+//axis2 jog
+void Application::Btn_JogIncrease2_pressed() {
+
+	controller->axis[1]->jogIncrease();
+}
+
+void Application::Btn_JogIncrease2_released() {
+
+	controller->axis[1]->jogStop();
+
+}
+
+void Application::Btn_JogDecrease2_pressed() {
+	controller->axis[1]->jogDecrease();
+
+}
+
+void Application::Btn_JogDecrease2_released() {
+
+	controller->axis[1]->jogStop();
+
+}
+
+//axis1 home
+void Application::Btn_Home_clicked() {
+
+	controller->axis[0]->homePosition();
+
+}
+
+//axis2 home
+void Application::Btn_Home_2_clicked() {
+
+	controller->axis[1]->homePosition();
+
+}
+
+//axis1 
+void Application::Btn_LoadPos_clicked() {
+
+	controller->axis[0]->MoveToPos(LOAD_POSITION, LOAD_UNLOAD_VELOCITY);
+}
+
+void Application::Btn_MeasurePos_clicked() {
+
+	controller->axis[0]->MoveToPos(MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
+}
+
+//axis2
+void Application::Btn_Angel1_clicked() {
+
+	controller->axis[1]->MoveToPos(ROTATE_ANGEL1, ROTATE_VELOCITY);
+
+}
+
+void Application::Btn_Angel2_clicked() {
+
+	controller->axis[1]->MoveToPos(ROTATE_ANGEL2, ROTATE_VELOCITY);
+
+}
+

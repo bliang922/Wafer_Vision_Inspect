@@ -30,6 +30,15 @@ bool Controller::initialize() {
 	//rt = GT_ZeroPos(2);
 	//rt = GT_AxisOn(1);
 	//rt = GT_AxisOn(2);
+	axis[0]->vel_low = 30;
+	axis[0]->vel_high = 50;
+	axis[0]->vel_jog = 50;
+	axis[0]->home_offset = AXIS1_HOME_OFFSET;
+	axis[1]->vel_low = 3;
+	axis[1]->vel_high = 5;
+	axis[1]->vel_jog = 3;
+
+	axis[1]->home_offset = AXIS2_HOME_OFFSET;
 	if (axis[0]->initialize()) {
 		this->textEdit->append(QString::QString("Liner station axis initialize success."));
 	}
@@ -74,7 +83,7 @@ void Controller::lauchControllerThread() {
 void Controller::close() {
 	gts_800_Connected = false;
 	for (int i = 0; i < AXIS_NUM; i++) {
-		GT_AxisOff(i);
+		GT_AxisOff(i+1);
 
 	}
 
@@ -87,6 +96,7 @@ void Controller::close() {
 	EXI15--DI2--Start2
 	EXO0--DO0--Buzzer
 	EXO1--DO1--not connected
+	EXO2--DO2--strobe
 	EXO8--DO8--Vacumm
 
 */
@@ -112,6 +122,7 @@ void Controller::IORefresh() {
 
 		myOutputLogic[0] = Buzzor_on;
 		myOutputLogic[8] = Vaccum_on;
+		myOutputLogic[2] = strobe_on;
 
 		//write outputs to gts_800 module
 		for (int i = 0; i < OUTPUT_NUM; i++) {
@@ -141,25 +152,28 @@ void Controller::logic_Circle() {
 
 //*******************************************logic block*******************************************************************/
 
-		//if (start_button1&&start_button2) AUTO_MODE = true;
-		////step1:move linear station to measure position
-		//if (AUTO_MODE&&start_button1&&start_button2 && !step1_loadPart && !step2_reload && pc_done&&axis[AXIS1_LOAD]->in_load_pos)
-		//	step1_loadPart = true;
+		if (start_button1&&start_button2) AUTO_MODE = true;
+		//step1:move linear station to measure position
+		axis[AXIS1_LOAD]->error = axis[AXIS1_LOAD]->status & 0x02;
+		axis[AXIS2_ROTATE]->error = axis[AXIS2_ROTATE]->status & 0x02;
 
-		//if (step1_loadPart) {
-		//	
-		//	axis[AXIS1_LOAD]->MoveToPos(MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
-		//	axis[AXIS1_LOAD]->in_measure_pos = true;
-		//	axis[AXIS1_LOAD]->in_load_pos = false;
+		if (AUTO_MODE&&start_button1&&start_button2 && !step1_loadPart && !step2_reload && pc_done&&!axis[AXIS1_LOAD]->error)
+			step1_loadPart = true;
 
-		//	this->textEdit->append(QString::QString("Liner station in MEASURE position"));
+		if (step1_loadPart) {
+			
+			axis[AXIS1_LOAD]->MoveToPos(MEASURE_POSITION, LOAD_UNLOAD_VELOCITY);
+			axis[AXIS1_LOAD]->in_measure_pos = true;
+			axis[AXIS1_LOAD]->in_load_pos = false;
 
-		//	//wait for machanical stable
-		//	std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		//	step1_loadPart = false;
-		//	emit loadPartDone();
+			this->textEdit->append(QString::QString("Liner station in MEASURE position"));
 
-		//}
+			//wait for machanical stable
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			step1_loadPart = false;
+			emit loadPartDone();
+
+		}
 
 		////step2: move linear station to load position
 		//if (AUTO_MODE && start_button1&&start_button2 && !step1_loadPart && !step2_reload && pc_done&&axis[AXIS1_LOAD]->in_measure_pos)
@@ -182,7 +196,6 @@ void Controller::logic_Circle() {
 		axis[1]->run();
 		emit HMI_update();
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
 
 	}
 }
